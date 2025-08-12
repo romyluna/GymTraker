@@ -10,4 +10,5 @@ public class GymtrackerApplication {
 		SpringApplication.run(GymtrackerApplication.class, args);
 	}
 
+
 }

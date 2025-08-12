@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,5 +28,12 @@ public class GrupoMuscular {
     //utilizo cascade porque al actualizas o eliminas un GrupoMuscular, JPA también hará esa acción sobre todos los Ejercicio de la lista automáticamente
     @OneToMany(mappedBy = "grupoMuscular", cascade = CascadeType.ALL)
     private List<Ejercicio> ejercicios;
+
+    //agrego este Constructor sin id para facilitar creación en seed porque traia un porblema con el id null
+    public GrupoMuscular(String nombre) {
+        this.nombre = nombre;
+        this.ejercicios = new ArrayList<>();
+    }
+
 
 }

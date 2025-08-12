@@ -25,4 +25,10 @@ public class Ejercicio {
     @JoinColumn(name = "gm_id" ,nullable = false) //nullable: porque un ejercicio siempre debe estar asociado a un grupo muscular
     private GrupoMuscular grupoMuscular;
 
+    //agrego este Constructor sin id para facilitar creación en seed
+    public Ejercicio(String nombre, GrupoMuscular grupoMuscular) {
+        this.nombre = nombre;
+        this.grupoMuscular = grupoMuscular;
+    }
+
 }
