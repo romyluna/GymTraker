@@ -21,6 +21,7 @@ public class Ejercicio {
     @Column(nullable = false)
     private String nombre;
 
+
     @ManyToOne
     @JoinColumn(name = "gm_id" ,nullable = false) //nullable: porque un ejercicio siempre debe estar asociado a un grupo muscular
     private GrupoMuscular grupoMuscular;
