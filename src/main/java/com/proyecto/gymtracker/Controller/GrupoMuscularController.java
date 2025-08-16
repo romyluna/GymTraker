@@ -1,5 +1,6 @@
 package com.proyecto.gymtracker.Controller;
 
+import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.service.GrupoMuscularService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class GrupoMuscularController {
     private GrupoMuscularService grupoMuscularService;
 
    @GetMapping
-    public List<GrupoMuscular> findAll() {
+    public List<GrupoMuscularDTO> findAll() {
        return grupoMuscularService.findAll();
    }
 
@@ -49,7 +50,7 @@ public class GrupoMuscularController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<GrupoMuscular> findByNombre(@PathVariable String nombre) {
+    public ResponseEntity<GrupoMuscularDTO> findByNombre(@PathVariable String nombre) {
         return grupoMuscularService.findByNombre(nombre)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
