@@ -8,11 +8,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import org.springframework.beans.factory.annotation.Value;
 import java.util.List;
-import java.util.Optional;
+
 
 @Component
 public class DataSeed implements CommandLineRunner{
+
+    //para que corra por primera vez o no hay que modificar true o false en application properties -->(seed.enabled=true)
+    @Value("${seed.enabled}")
+    private boolean seedEnabled;
 
     private final GrupoMuscularRepository grupoMuscularRepository;
     private final EjercicioRepository ejercicioRepository;
@@ -26,16 +32,18 @@ public class DataSeed implements CommandLineRunner{
     @Transactional
     public void run(String... args) throws Exception {
         // Lista de grupos musculares
-        List<String> grupos = List.of(
-                "Piernas",
-                "Pecho",
-                "Espalda",
-                "Hombros",
-                "Bíceps",
-                "Tríceps",
-                "Abdominales",
-                "Glúteos"
-        );
+
+            List<String> grupos = List.of(
+                    "Piernas",
+                    "Pecho",
+                    "Espalda",
+                    "Hombros",
+                    "Bíceps",
+                    "Tríceps",
+                    "Abdominales",
+                    "Glúteos"
+            );
+
 
         // Crear grupos si no existen
         for (String nombre : grupos) {

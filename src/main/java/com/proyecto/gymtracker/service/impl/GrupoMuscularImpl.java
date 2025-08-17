@@ -46,8 +46,20 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
     }
 
     @Override
-    public Optional<GrupoMuscular> findById(int gm_id){
-        return grupoMuscularRepository.findById(gm_id);
+    public Optional<GrupoMuscularDTO> findById(int gm_id){
+        return grupoMuscularRepository.findById(gm_id)
+                .map(grupo -> {
+                    GrupoMuscularDTO dto = new GrupoMuscularDTO();
+                    dto.setGm_id(grupo.getGm_id());
+                    dto.setNombre(grupo.getNombre());
+                    dto.setEjercicios(
+                            grupo.getEjercicios()
+                                    .stream()
+                                    .map(Ejercicio::getNombre)
+                                    .toList()
+                    );
+                    return dto;
+                });
     }
 
     @Override

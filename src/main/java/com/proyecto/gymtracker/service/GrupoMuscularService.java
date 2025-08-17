@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface GrupoMuscularService {
 
     List<GrupoMuscularDTO> findAll();
-    Optional<GrupoMuscular> findById(int id);
+    Optional<GrupoMuscularDTO> findById(int id);
     GrupoMuscular save(GrupoMuscular grupo);
     void deleteById(int id);
     Optional<GrupoMuscularDTO> findByNombre(String nombre);

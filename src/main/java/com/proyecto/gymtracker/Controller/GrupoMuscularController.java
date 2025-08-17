@@ -22,7 +22,7 @@ public class GrupoMuscularController {
    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GrupoMuscular> getById(@PathVariable int id) {
+    public ResponseEntity<GrupoMuscularDTO> getById(@PathVariable int id) {
         return grupoMuscularService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -33,6 +33,7 @@ public class GrupoMuscularController {
         return grupoMuscularService.save(grupo);
     }
 
+    /*
     @PutMapping("/{id}")
     public ResponseEntity<GrupoMuscular> update(@PathVariable int id, @RequestBody GrupoMuscular grupo) {
         return grupoMuscularService.findById(id)
@@ -42,6 +43,8 @@ public class GrupoMuscularController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+     */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
