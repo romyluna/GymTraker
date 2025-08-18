@@ -32,6 +32,8 @@ Por ahora, se está desarrollando únicamente el **Backend**
 
 A continuación se muestra el modelo entidad-relación que representa la estructura principal de la base de datos utilizada por el sistema:
 
+![Modelo DER](src/main/java/com/proyecto/gymtracker/screenshots/modeloDER.png)
+
 ---
 
 ### 👩‍💻 Contacto
