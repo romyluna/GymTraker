@@ -10,9 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GrupoMuscularImpl implements GrupoMuscularService {
@@ -87,6 +86,43 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
     }
 
     @Override
+    public GrupoMuscularPostDTO update(int id, GrupoMuscularPostDTO dto) {
+        GrupoMuscular grupo = grupoMuscularRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Grupo muscular no encontrado"));
+
+        grupo.setNombre(dto.getNombre());
+
+        // Crear un Set con los nombres de los ejercicios existentes
+        Set<String> nombresExistentes = grupo.getEjercicios().stream()
+                .map(Ejercicio::getNombre)
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
+
+        // Mapear los nombres del DTO a ejercicios, lanzando excepción si ya existen
+        List<Ejercicio> ejerciciosActualizados = dto.getEjercicios().stream()
+                .map(nombre -> {
+                    if (nombresExistentes.contains(nombre.toLowerCase())) {
+                        throw new IllegalArgumentException("El ejercicio '" + nombre + "' ya se encuentra en la base");
+                    } else {
+                        Ejercicio nuevo = new Ejercicio();
+                        nuevo.setNombre(nombre);
+                        nuevo.setGrupoMuscular(grupo);
+                        return nuevo;
+                    }
+                })
+                .collect(Collectors.toCollection(ArrayList::new)); // <-- mutable
+
+        grupo.setEjercicios(ejerciciosActualizados);
+
+        grupoMuscularRepository.save(grupo);
+
+        return dto;
+    }
+
+
+
+
+    @Override
     public void deleteById(int gm_id){
         grupoMuscularRepository.deleteById(gm_id);
     }
@@ -107,4 +143,10 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
                     return dto;
                 });
     }
+
+
+
+
+
+
 }

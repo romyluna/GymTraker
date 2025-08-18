@@ -43,18 +43,18 @@ public class GrupoMuscularController {
 
 
 
-    /*
     @PutMapping("/{id}")
-    public ResponseEntity<GrupoMuscular> update(@PathVariable int id, @RequestBody GrupoMuscular grupo) {
-        return grupoMuscularService.findById(id)
-                .map(g -> {
-                    g.setNombre(grupo.getNombre());
-                    return ResponseEntity.ok(grupoMuscularService.save(g));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody GrupoMuscularPostDTO grupo) {
+        try {
+            GrupoMuscularPostDTO updated = grupoMuscularService.update(id, grupo);
+            return ResponseEntity.ok(updated); // 200 OK
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage()); // devuelve solo el mensaje
+        }
     }
 
-     */
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {

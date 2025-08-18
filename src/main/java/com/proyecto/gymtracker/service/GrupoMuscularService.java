@@ -14,5 +14,5 @@ public interface GrupoMuscularService {
     GrupoMuscularPostDTO save(GrupoMuscularPostDTO grupo);
     void deleteById(int id);
     Optional<GrupoMuscularDTO> findByNombre(String nombre);
-   // Optional<GrupoMuscular> findByNombre(String nombre);
+    GrupoMuscularPostDTO update (int id, GrupoMuscularPostDTO grupo);
 }
