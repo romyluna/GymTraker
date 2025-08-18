@@ -1,9 +1,11 @@
 package com.proyecto.gymtracker.Controller;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
+import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.service.GrupoMuscularService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +31,17 @@ public class GrupoMuscularController {
     }
 
     @PostMapping
-    public GrupoMuscular create(@RequestBody GrupoMuscular grupo) {
-        return grupoMuscularService.save(grupo);
+    public ResponseEntity<GrupoMuscularPostDTO> create(@RequestBody GrupoMuscularPostDTO grupo) {
+        try {
+            GrupoMuscularPostDTO saved = grupoMuscularService.save(grupo); //guardo la respuesta que me da mi metodo
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved); // 201
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage()); // imprime "El grupo muscular ya existe" en consola
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // 409 Conflict
+        }
     }
+
+
 
     /*
     @PutMapping("/{id}")

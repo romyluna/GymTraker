@@ -1,6 +1,7 @@
 package com.proyecto.gymtracker.service.impl;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
+import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.model.Ejercicio;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.repository.GrupoMuscularRepository;
@@ -63,8 +64,26 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
     }
 
     @Override
-    public GrupoMuscular save (GrupoMuscular grupo){
-        return grupoMuscularRepository.save(grupo);
+    public GrupoMuscularPostDTO save(GrupoMuscularPostDTO dto) {
+        // Buscamos si ya existe un grupo con ese nombre
+
+        if(grupoMuscularRepository.findByNombre(dto.getNombre()).isPresent()) {
+            throw new IllegalArgumentException("El grupo muscular ya existe");//le avisa al controller que ya existe
+        }
+        //objeto que sí se persiste en la BD.
+        GrupoMuscular grupo = new GrupoMuscular();
+        //copio el nombre del DTO a la entidad
+        grupo.setNombre(dto.getNombre());
+        grupo.setEjercicios(dto.getEjercicios().stream()
+                .map(nombre -> {
+                    Ejercicio e = new Ejercicio();
+                    e.setNombre(nombre);
+                    e.setGrupoMuscular(grupo);
+                    return e;
+                }).toList());
+
+        grupoMuscularRepository.save(grupo);
+        return dto;
     }
 
     @Override
