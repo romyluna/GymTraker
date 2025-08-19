@@ -71,6 +71,8 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
         }
         //objeto que sí se persiste en la BD.
         GrupoMuscular grupo = new GrupoMuscular();
+
+
         //copio el nombre del DTO a la entidad
         grupo.setNombre(dto.getNombre());
         grupo.setEjercicios(dto.getEjercicios().stream()
@@ -102,7 +104,7 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
         List<Ejercicio> ejerciciosActualizados = dto.getEjercicios().stream()
                 .map(nombre -> {
                     if (nombresExistentes.contains(nombre.toLowerCase())) {
-                        throw new IllegalArgumentException("El ejercicio '" + nombre + "' ya se encuentra en la base");
+                        throw new IllegalArgumentException("El ejercicio '" + nombre + "' ya se encuentra en la base por lo tanto no se agrega ninguno de los ejercicio mencionados");
                     } else {
                         Ejercicio nuevo = new Ejercicio();
                         nuevo.setNombre(nombre);
@@ -119,11 +121,13 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
         return dto;
     }
 
-
-
-
     @Override
     public void deleteById(int gm_id){
+        if (!grupoMuscularRepository.existsById(gm_id)) {
+            throw new IllegalArgumentException(
+                    "El grupo muscular con ID " + gm_id + " no existe en la base"
+            );
+        }
         grupoMuscularRepository.deleteById(gm_id);
     }
 
@@ -143,10 +147,5 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
                     return dto;
                 });
     }
-
-
-
-
-
 
 }
