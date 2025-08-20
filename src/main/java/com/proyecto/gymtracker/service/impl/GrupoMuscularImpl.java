@@ -2,6 +2,7 @@ package com.proyecto.gymtracker.service.impl;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
 import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
+import com.proyecto.gymtracker.exception.ResourceNotFoundException;
 import com.proyecto.gymtracker.model.Ejercicio;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.repository.GrupoMuscularRepository;
@@ -46,7 +47,7 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
     }
 
     @Override
-    public Optional<GrupoMuscularDTO> findById(int gm_id){
+    public GrupoMuscularDTO findById(int gm_id){
         return grupoMuscularRepository.findById(gm_id)
                 .map(grupo -> {
                     GrupoMuscularDTO dto = new GrupoMuscularDTO();
@@ -59,7 +60,10 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
                                     .toList()
                     );
                     return dto;
-                });
+                })
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "No se encontró el grupo muscular con id " + gm_id
+                ));
     }
 
     @Override
@@ -144,7 +148,7 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
     }
 
     @Override
-    public Optional<GrupoMuscularDTO> findByNombre(String nombre) {
+    public GrupoMuscularDTO  findByNombre(String nombre) {
         return grupoMuscularRepository.findByNombre(nombre)
                 .map(grupo -> {
                     GrupoMuscularDTO dto = new GrupoMuscularDTO();
@@ -157,7 +161,10 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
                                     .toList()
                     );
                     return dto;
-                });
+                })
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "No se encontró el grupo muscular con el nombre " + nombre
+                ));
     }
 
 }

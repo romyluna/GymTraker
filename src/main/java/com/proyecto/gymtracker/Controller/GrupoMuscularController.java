@@ -6,6 +6,7 @@ import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.service.GrupoMuscularService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,17 @@ public class GrupoMuscularController {
     private GrupoMuscularService grupoMuscularService;
 
    @GetMapping
+   @Operation(summary= "Trae todos los Grupo Musculares + Ejercicios")
     public List<GrupoMuscularDTO> findAll() {
+
        return grupoMuscularService.findAll();
    }
 
     @GetMapping("/{id}")
+    @Operation(summary= "Trae por id Grupo muscular + Ejercicios")
     public ResponseEntity<GrupoMuscularDTO> getById(@PathVariable int id) {
-        return grupoMuscularService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        GrupoMuscularDTO dto = grupoMuscularService.findById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -70,10 +73,12 @@ public class GrupoMuscularController {
     }
 
     @GetMapping("/nombre/{nombre}")
+    @Operation(summary= "Trae por nombre Grupo muscular + Ejercicios")
     public ResponseEntity<GrupoMuscularDTO> findByNombre(@PathVariable String nombre) {
-        return grupoMuscularService.findByNombre(nombre)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+
+        GrupoMuscularDTO dto = grupoMuscularService.findByNombre(nombre);
+        return ResponseEntity.ok(dto);
+
     }
 
 }
