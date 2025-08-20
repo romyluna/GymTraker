@@ -5,6 +5,7 @@ import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.service.GrupoMuscularService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +34,12 @@ public class GrupoMuscularController {
 
     @PostMapping
     @Operation(summary= "Crear un nuevo Grupo Muscular + Ejercicios", description = "En caso que el grupo muscular ya exista no lo va agregar")
-    public ResponseEntity<?> create(@RequestBody GrupoMuscularPostDTO grupo) {
+    public ResponseEntity<?> create(@Valid @RequestBody GrupoMuscularPostDTO grupo) {
         try {
             GrupoMuscularPostDTO saved = grupoMuscularService.save(grupo); //guardo la respuesta que me da mi metodo
             return ResponseEntity.status(HttpStatus.CREATED).body(saved); // 201
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage()); // imprime "El grupo muscular ya existe" en consola
+            //System.out.println(e.getMessage()); // imprime "El grupo muscular ya existe" en consola
             return ResponseEntity.status(HttpStatus.CONFLICT).body("UPS! " + e.getMessage()); // 409 Conflict
         }
     }

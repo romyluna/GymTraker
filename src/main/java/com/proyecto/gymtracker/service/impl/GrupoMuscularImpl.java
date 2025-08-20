@@ -64,27 +64,39 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
 
     @Override
     public GrupoMuscularPostDTO save(GrupoMuscularPostDTO dto) {
+
+        // Normalizamos el nombre
+        String nombreNormalizado = normalizarTexto(dto.getNombre());
+
         // Buscamos si ya existe un grupo con ese nombre
 
-        if(grupoMuscularRepository.findByNombre(dto.getNombre()).isPresent()) {
+        if(grupoMuscularRepository.findByNombre(nombreNormalizado).isPresent()) {
             throw new IllegalArgumentException("El grupo muscular ya existe");//le avisa al controller que ya existe
         }
         //objeto que sí se persiste en la BD.
         GrupoMuscular grupo = new GrupoMuscular();
+        //copio el nombre del DTO a la entidad normalizado
+        grupo.setNombre(nombreNormalizado);
 
-
-        //copio el nombre del DTO a la entidad
-        grupo.setNombre(dto.getNombre());
         grupo.setEjercicios(dto.getEjercicios().stream()
                 .map(nombre -> {
                     Ejercicio e = new Ejercicio();
-                    e.setNombre(nombre);
+                    e.setNombre(normalizarTexto(nombre));
                     e.setGrupoMuscular(grupo);
                     return e;
                 }).toList());
 
         grupoMuscularRepository.save(grupo);
         return dto;
+    }
+
+    //para normalizar el texto que ingresa el usuario
+    private String normalizarTexto(String texto) {
+        if (texto == null) return null;
+        return java.text.Normalizer.normalize(texto, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "") // elimina tildes
+                .toLowerCase()
+                .trim();
     }
 
     @Override
