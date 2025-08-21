@@ -1,6 +1,7 @@
 package com.proyecto.gymtracker.Controller;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
+import com.proyecto.gymtracker.dto.GrupoMuscularLightDTO;
 import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 import com.proyecto.gymtracker.service.GrupoMuscularService;
@@ -79,6 +80,12 @@ public class GrupoMuscularController {
         GrupoMuscularDTO dto = grupoMuscularService.findByNombre(nombre);
         return ResponseEntity.ok(dto);
 
+    }
+
+    @GetMapping("/grupos")
+    @Operation(summary= "USUARIO: Trae solo los grupos musculares que existen")
+    public List<GrupoMuscularLightDTO> findAllGrupoMuscular() {
+        return grupoMuscularService.findAllGrupoMuscular();
     }
 
 }

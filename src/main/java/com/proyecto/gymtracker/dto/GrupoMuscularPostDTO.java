@@ -9,6 +9,8 @@ import java.util.List;
 @Data
 public class GrupoMuscularPostDTO {
 
+    //sirve para el post - put
+
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 

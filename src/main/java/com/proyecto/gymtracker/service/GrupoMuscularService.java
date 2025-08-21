@@ -1,6 +1,7 @@
 package com.proyecto.gymtracker.service;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
+import com.proyecto.gymtracker.dto.GrupoMuscularLightDTO;
 import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.model.GrupoMuscular;
 
@@ -15,4 +16,5 @@ public interface GrupoMuscularService {
     void deleteById(int id);
     GrupoMuscularDTO  findByNombre(String nombre);
     GrupoMuscularPostDTO update (int id, GrupoMuscularPostDTO grupo);
+    List<GrupoMuscularLightDTO> findAllGrupoMuscular();
 }

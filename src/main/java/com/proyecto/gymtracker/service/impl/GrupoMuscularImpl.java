@@ -1,6 +1,7 @@
 package com.proyecto.gymtracker.service.impl;
 
 import com.proyecto.gymtracker.dto.GrupoMuscularDTO;
+import com.proyecto.gymtracker.dto.GrupoMuscularLightDTO;
 import com.proyecto.gymtracker.dto.GrupoMuscularPostDTO;
 import com.proyecto.gymtracker.exception.ResourceNotFoundException;
 import com.proyecto.gymtracker.model.Ejercicio;
@@ -167,4 +168,16 @@ public class GrupoMuscularImpl implements GrupoMuscularService {
                 ));
     }
 
+
+    @Override
+    public List<GrupoMuscularLightDTO> findAllGrupoMuscular() {
+        return grupoMuscularRepository.findAll()
+                .stream()
+                .map(g -> {
+                    GrupoMuscularLightDTO dto = new GrupoMuscularLightDTO();
+                    dto.setNombre(g.getNombre());
+                    return dto;
+                })
+                .toList();
+    }
 }
