@@ -18,6 +18,7 @@ public class EjercicioController {
     @Autowired
     private EjercicioService ejercicioService;
 
+
     @GetMapping("/ejercicios")
     @Operation(summary= "USUARIO: Trae solo los ejercicios que existen")
     public List<EjercicioLightDTO> findAllEjercicio() {
