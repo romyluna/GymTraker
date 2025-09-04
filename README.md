@@ -57,7 +57,10 @@ A continuación se muestra el modelo entidad-relación que representa la estruct
 
 La siguiente imagen muestra la documentación automática generada por Swagger para la API de GymTracker. Desde aquí se pueden consultar y probar los distintos endpoints disponibles.
 
-![Swagger UI]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/swag1.PNG?raw=true)
+
+
 
 ---
 **ADMINISTRADOR**
@@ -70,7 +73,7 @@ Este endpoint:
 - **Descripción:** Devuelve grupo muscular por ID
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/gmxid1.PNG?raw=true)
 
 ---
 
@@ -82,7 +85,8 @@ Este endpoint:
 - **Descripción:** Devuelve todos los grupoos musculares + ejercicios por grupo muscular 
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/gmxid2.PNG?raw=true)
 
 ---
 
@@ -94,7 +98,8 @@ Este endpoint:
 - **Descripción:** Agrega nuevos grupos musculares + ejercicios (si ya esta creado no se vuelve a crear)
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/postgmx3.PNG?raw=true)
 
 
 ---
@@ -104,14 +109,22 @@ Este endpoint:
 Este endpoint:
 
 - **Método:** `PUT`
-- **Descripción:** Se puede modificar un grupo muscular por id con lo cual se puede modificar el nombre del grupo muscular o no o eso puede quedar como lo trae ese id que buscamos y se pueden agregar nuevos ejercicios si un ejercicio ya esta agregado
-  no se va a volver a agregar (no duplica) - le puse un metodo tambien que no tiene en cuenta mayusculas-minusculas -
+- **Descripción:**
+  <br>
+  - Se puede cambiar el **nombre del grupo muscular** (o dejarlo igual).
+  - Se pueden **agregar nuevos ejercicios** al grupo.
+  - Si un ejercicio ya existe en el grupo, **no se duplica**.
+  - La validación de ejercicios **no distingue entre mayúsculas y minúsculas**.
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/putgmx4.PNG?raw=true)
 
 ---
 **USUARIO**
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/usuario1.PNG?raw=true)
+
 
 ### Ejemplo de Post: Para crear un entrenamiento -2
 
@@ -121,7 +134,8 @@ Este endpoint:
 - **Descripción:** el usuario puede crear un entrenamiento por dia en donde va a poder ir cargando que ejercicios fue realizando y cuanto peso levanto por ejercicio
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/usuario2.PNG?raw=true)
 
 ---
 
@@ -133,7 +147,8 @@ Este endpoint:
 - **Descripción:** el usuario puede actualizar un entrenamiento que ya exista si es que se confundio en algo
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/usuario3.PNG?raw=true)
 
 ---
 
@@ -142,10 +157,11 @@ Este endpoint:
 Este endpoint:
 
 - **Método:** `DELETE`
-- **Descripción:** el usuario puede borrar un entrenamiento
+- **Descripción:** el usuario puede borrar un entrenamiento + detalle de entrenamiento completo 
 
 #### Vista en Swagger:
-![Swagger UI - GET Productos]
+
+![Swagger UI](https://github.com/romyluna/GymTraker/blob/master/screenshots/usuario4.PNG?raw=true)
 
 ---
 **Se continua trabajando...**
