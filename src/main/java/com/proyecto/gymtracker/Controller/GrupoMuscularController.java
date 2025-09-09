@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class GrupoMuscularController {
        return grupoMuscularService.findAll();
    }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping("/{id}")
     @Operation(summary= "Trae por id Grupo muscular + Ejercicios")
     public ResponseEntity<GrupoMuscularDTO> getById(@PathVariable int id) {
