@@ -41,8 +41,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF
                 .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/auth/registro").permitAll() // <- registro público
                         .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/usuario/**").hasAnyRole("USUARIO", "ADMINISTRADOR")
+
                         .anyRequest().authenticated()
                         //Todo lo demás necesita estar logueado, pero sin restricción de rol específico
                 )

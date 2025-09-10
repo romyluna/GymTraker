@@ -62,7 +62,7 @@ public class GrupoMuscularController {
         }
     }
 
-
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @DeleteMapping("/{id}")
     @Operation(summary= "Eliminación Grupo muscular + Ejercicios", description = "Si se borra un grupo muscular se borran todos sus ejercicios")
     public ResponseEntity<String> deleteById(@PathVariable int id) {
